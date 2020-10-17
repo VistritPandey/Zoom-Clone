@@ -1,13 +1,21 @@
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
+
+
 const myPeer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
   port: '443'
 })
+
+
+
+
 let myVideoStream;
 const myVideo = document.createElement('video')
+
 myVideo.muted = true;
+
 const peers = {}
 navigator.mediaDevices.getUserMedia({
   video: true,
@@ -23,12 +31,16 @@ navigator.mediaDevices.getUserMedia({
     })
   })
 
+
   socket.on('user-connected', userId => {
     connectToNewUser(userId, stream)
   })
-  // input value
+  
+
+
+
   let text = $("input");
-  // when press enter send message
+  
   $('html').keydown(function (e) {
     if (e.which == 13 && text.val().length !== 0) {
       socket.emit('message', text.val());
@@ -48,6 +60,7 @@ socket.on('user-disconnected', userId => {
 myPeer.on('open', id => {
   socket.emit('join-room', ROOM_ID, id)
 })
+
 
 function connectToNewUser(userId, stream) {
   const call = myPeer.call(userId, stream)
