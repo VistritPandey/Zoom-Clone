@@ -1,8 +1,8 @@
 let myVideoStream
 const myVideo = document.createElement('video');
 myVideo.muted = true;
-
-
+const videoGrid = document.getElementById('video-grid');
+console.log(videoGrid);
 
 navigator.mediaDevices.getUserMedia({
     video: true,
@@ -18,4 +18,5 @@ const addVideoStream = (video, stream) => {
     video.addEventListener('loadmetadata', ()=> {
         video.play();
     })
+    videoGrid.append(video);
 }
