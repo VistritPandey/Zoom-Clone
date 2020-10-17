@@ -5,7 +5,7 @@ const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
   path: '/peerjs',
   host: '/',
-  port: '443'
+  port: '3030'
 })
 
 
@@ -32,7 +32,7 @@ navigator.mediaDevices.getUserMedia({
   })
 
   
-  socket.on('user-connected', userId => {
+  socket.on('user-connected', (userId) => {
     connectToNewUser(userId, stream)
   })
   
