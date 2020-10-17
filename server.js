@@ -4,7 +4,7 @@ const server = require('http').Server(app);
 const {v4: uuidv4} = require('uuid');
 app.set('view engine','ejs');
 app.use(express.static('public'));
-const io = require('socketio')(server)
+const io = require('socket.io')(server)
 
 app.get('/',(req, res) => {
     res.redirect(`/${uuidv4()}`);
@@ -17,7 +17,8 @@ app.get('/:room', (req, res) => {
 
 io.on('connection',socket =>{
     socket.on('join-room', ()=>{
-        console.log("joined the room");
+        socket.join(roomId);
+        socket.to(roomId).broadcast.emit('user-connected');
     })
 })
 
